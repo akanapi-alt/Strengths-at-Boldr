@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Strengths at Boldr helps teammates understand how they naturally contribute and work better together using CliftonStrengths.">
+  <title>Strengths at Boldr</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/data.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand-lockup" href="index.html" aria-label="Strengths at Boldr home">
+      <span class="logo-viewport" aria-hidden="true"><img class="boldr-logo" src="assets/boldr-logo.png" alt=""></span>
+      <span class="brand-divider" aria-hidden="true"></span>
+      <span class="brand-product">Strengths at Boldr</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" data-nav href="index.html">Overview</a>
+      <a class="nav-link" data-nav href="grid.html">Explore People</a>
+      <a class="nav-link" data-nav href="insights.html">Strengths Insights</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero hero-v4 hero-v7">
+    <div class="shell hero-v4-grid hero-v7-grid">
+      <div class="hero-v4-copy">
+        <p class="eyebrow">Strengths at Boldr</p>
+        <h1>Know yourself.<br>Understand <span class="accent">others.</span><br>Work better together.</h1>
+        <p class="hero-copy">CliftonStrengths gives us a shared language for recurring patterns in how people naturally think, feel and act. At Boldr, we use that language to make collaboration more intentional, human and practical.</p>
+        <div class="hero-actions">
+          <a class="button orange" href="grid.html?status=Active#directoryResults">Explore the People Grid</a>
+          <a class="button framework-secondary" href="#framework">Learn the framework</a>
+        </div>
+        <div class="hero-map" aria-label="Explore the strengths experience">
+          <a class="hero-map-card themes" href="#framework-themes">
+            <span class="hero-map-number">34</span>
+            <span class="hero-map-copy"><strong>Talent themes</strong><small>Explore the language of CliftonStrengths</small></span>
+            <span class="hero-map-arrow">↘</span>
+          </a>
+          <a class="hero-map-card domains" href="#domainTabs">
+            <span class="hero-map-number">4</span>
+            <span class="hero-map-copy"><strong>Domains</strong><small>See four lenses for contribution</small></span>
+            <span class="domain-mini-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          </a>
+          <a class="hero-map-card profiles" href="grid.html">
+            <span class="hero-map-number" id="profileCount"></span>
+            <span class="hero-map-copy"><strong>Strengths profiles</strong><small>Explore all profiles represented in this directory</small></span>
+            <span class="hero-map-arrow">→</span>
+          </a>
+        </div>
+      </div>
+      <aside class="hero-collaboration" aria-label="Boldr and Gallup CliftonStrengths collaboration visual">
+        <div class="collaboration-art-shell collaboration-art-shell-v7">
+          <img src="assets/boldr-gallup-collaboration.png" alt="Boldr and Gallup CliftonStrengths collaboration graphic" loading="eager">
+        </div>
+        <div class="hero-scope-note"><strong>About this directory</strong><span id="heroDirectoryScope">Profiles in this directory are drawn from the current strengths dataset.</span></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section compact">
+    <div class="shell why-panel expressive-panel">
+      <p class="eyebrow light-eyebrow">Why strengths matter at Boldr</p>
+      <h2>Make individual differences easier to understand and easier to work with.</h2>
+      <p>At Boldr, strengths give us a shared language for understanding how people naturally contribute, what they may need from others, and how we can work together more intentionally. The goal is not to label people. It is to create better conversations, stronger partnerships, and more practical ways to support one another.</p>
+      <div class="principles">
+        <div class="principle"><span class="principle-no">01</span><strong>Start with the person</strong><span>Use a profile to support self awareness, never to reduce someone to a label.</span></div>
+        <div class="principle"><span class="principle-no">02</span><strong>Make collaboration concrete</strong><span>Turn strengths language into useful conversations about contribution, support and partnership.</span></div>
+        <div class="principle"><span class="principle-no">03</span><strong>Look for complementarity</strong><span>Notice what is present across a team before treating lower representation as something to fix.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="framework-stage framework-v4 framework-v7" id="framework">
+    <div class="shell">
+      <div class="framework-stage-intro">
+        <div>
+          <p class="eyebrow light-eyebrow">The framework</p>
+          <h2>A language for contribution,<br><span>not a score.</span></h2>
+        </div>
+        <div class="framework-stage-copy">
+          <div class="framework-source-line"><span>CliftonStrengths® by Gallup</span><a href="https://www.gallup.com/cliftonstrengths/en/253715/home.aspx" target="_blank" rel="noopener">About CliftonStrengths ↗</a></div>
+          <p>CliftonStrengths organizes 34 talent themes into four domains. At Boldr, we use that shared language to understand contribution and strengthen how people work together.</p>
+          <p class="framework-stage-note">The goal is development and conversation, not a perfect balance, ranking, or measure of capability.</p>
+        </div>
+      </div>
+      <div class="domain-explorer" id="framework-themes">
+        <div class="domain-tabs" id="domainTabs" aria-label="CliftonStrengths domains">
+          <button class="domain-tab executing is-active" type="button" aria-pressed="true" data-domain="Executing"><span>Executing</span><small>9 themes</small></button>
+          <button class="domain-tab influencing" type="button" aria-pressed="false" data-domain="Influencing"><span>Influencing</span><small>8 themes</small></button>
+          <button class="domain-tab relationship" type="button" aria-pressed="false" data-domain="Relationship Building"><span>Relationship Building</span><small>9 themes</small></button>
+          <button class="domain-tab strategic" type="button" aria-pressed="false" data-domain="Strategic Thinking"><span>Strategic Thinking</span><small>8 themes</small></button>
+        </div>
+        <div class="domain-detail domain-detail-v7" id="domainDetail" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section gallup-learning-section gallup-learning-v4" id="gallup-resources">
+    <div class="shell">
+      <div class="gallup-resource-header">
+        <div>
+          <p class="eyebrow">Continue with</p>
+          <div class="gallup-brand-plate gallup-brand-plate-featured" aria-label="Gallup official CliftonStrengths resources"><span class="gallup-wordmark">GALLUP<sup>®</sup></span><span class="brand-plate-divider"></span><span>Official CliftonStrengths® resources</span></div>
+          <h2 class="source-title">Go deeper at <span>the source.</span></h2>
+        </div>
+        <div class="gallup-resource-intro">
+          <p>Explore Gallup’s official CliftonStrengths resources to learn more about the 34 talent themes, the four domains, and how strengths can support team conversations.</p>
+          <div class="resource-disclaimer"><span aria-hidden="true">ⓘ</span><p>These links open Gallup’s official resources in a new tab. Boldr does not reproduce Gallup’s proprietary report content.</p></div>
+        </div>
+      </div>
+      <div class="resource-grid resource-grid-v4">
+        <a class="resource-card resource-card-v4" href="https://www.gallup.com/cliftonstrengths/en/253715/home.aspx" target="_blank" rel="noopener">
+          <img class="resource-card-image" src="assets/gallup-themes-visual.jpg" alt="Architectural garden viewed from above">
+          <div class="resource-card-body"><span class="resource-number soft-purple">34</span><strong>Explore the CliftonStrengths® themes</strong><p>Browse Gallup’s official overview of all 34 talent themes and what they can bring.</p><span class="resource-link">Explore themes ↗</span></div>
+        </a>
+        <a class="resource-card resource-card-v4" href="https://www.gallup.com/cliftonstrengths/en/253736/cliftonstrengths-domains.aspx" target="_blank" rel="noopener">
+          <img class="resource-card-image" src="assets/gallup-domains-visual.jpg" alt="Abstract curved architecture in orange and blue">
+          <div class="resource-card-body"><span class="resource-number soft-orange">4</span><strong>Understand the four domains</strong><p>Learn how Gallup groups themes into Executing, Influencing, Relationship Building and Strategic Thinking.</p><span class="resource-link">Explore domains ↗</span></div>
+        </a>
+        <a class="resource-card resource-card-v4" href="https://www.gallup.com/cliftonstrengths/en/658739/team-grid.aspx" target="_blank" rel="noopener">
+          <img class="resource-card-image" src="assets/gallup-team-grid-visual.jpg" alt="Team members placing their hands together">
+          <div class="resource-card-body"><span class="resource-number soft-blue">TG</span><strong>See Gallup’s Team Grid approach</strong><p>Explore how Gallup visualizes collective themes and team patterns to strengthen collaboration.</p><span class="resource-link">Explore Team Grid ↗</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section compact continuation-section">
+    <div class="shell continuation-shell">
+      <div class="continuation-intro"><p class="eyebrow">Keep exploring</p><h2>Take strengths from insight to action.</h2><p>Explore individual profiles to understand how people naturally contribute, or step back and discover patterns across the wider strengths community.</p></div>
+      <div class="continuation-grid">
+        <a class="continuation-card people-path" href="grid.html?status=Active#directoryResults"><span class="continuation-kicker">Explore People</span><h3>Discover the people behind the themes.</h3><p>Search strengths profiles by domain, theme, department, location and status. Use focused cards for quick discovery, or switch to Matrix view when you want to compare ranked themes across a filtered group.</p><span class="continuation-link">Explore People →</span></a>
+        <a class="continuation-card insight-path" href="insights.html"><span class="continuation-kicker">Strengths Insights</span><h3>See the patterns behind our strengths.</h3><p>Explore aggregate theme and domain patterns, compare multiple locations or departments, drill into location details, and export the current analysis to Excel.</p><span class="continuation-link">View Strengths Insights →</span><span class="continuation-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer"><div class="shell footer-grid single-footer"><div class="footer-note">CliftonStrengths® and the CliftonStrengths theme names are trademarks of Gallup, Inc. This Boldr experience uses assessment results for development and collaboration, not for performance rating, hiring decisions, or measuring capability.</div></div></footer>
+<script src="assets/common.js"></script>
+<script src="assets/home.js"></script>
+</body>
+</html>

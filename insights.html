@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore aggregate CliftonStrengths patterns across the Boldr strengths directory, including strengths by location.">
+  <title>Strengths Insights | Strengths at Boldr</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/data.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand-lockup" href="index.html" aria-label="Strengths at Boldr home"><span class="logo-viewport" aria-hidden="true"><img class="boldr-logo" src="assets/boldr-logo.png" alt=""></span><span class="brand-divider" aria-hidden="true"></span><span class="brand-product">Strengths at Boldr</span></a>
+    <div class="nav-links"><a class="nav-link" data-nav href="index.html">Overview</a><a class="nav-link" data-nav href="grid.html">Explore People</a><a class="nav-link" data-nav href="insights.html">Strengths Insights</a></div>
+  </nav>
+</header>
+<main class="insights-page insights-page-v7">
+  <section class="insights-hero insights-hero-v7">
+    <div class="shell insights-hero-grid">
+      <div class="insights-hero-title"><p class="eyebrow">Strengths Insights</p><h1>See the patterns<br>behind our strengths.</h1></div>
+      <div class="insights-hero-support"><p class="insights-lead">Explore aggregate patterns across the CliftonStrengths profiles represented in this directory. Scope the analysis by location, department, profile status and theme depth.</p><p class="insights-scope-note">Every chart, comparison and Excel export uses the same active filters. Percentages use profiles with enough data for the selected Top 5 or Top 10 depth, while Profiles in view keeps the full filtered population visible.</p><div class="insights-bars-art" aria-label="Four CliftonStrengths domains"><div class="insights-bars"><span class="bar executing"></span><span class="bar influencing"></span><span class="bar relationship"></span><span class="bar strategic"></span></div><strong>Different strengths. Shared contribution.</strong></div></div>
+    </div>
+  </section>
+
+  <section class="shell insights-controls-card insights-controls-v12" aria-label="Insights filters">
+    <details class="insights-multi-filter" id="insightLocationFilter"><summary><span><small>Location</small><strong id="insightLocationLabel">All locations</strong></span><b id="insightLocationBadge">0</b></summary><div class="insights-multi-menu" id="insightLocationOptions"></div></details>
+    <details class="insights-multi-filter" id="insightDepartmentFilter"><summary><span><small>Department</small><strong id="insightDepartmentLabel">All departments</strong></span><b id="insightDepartmentBadge">0</b></summary><div class="insights-multi-menu wide" id="insightDepartmentOptions"></div></details>
+    <label class="insights-select-filter"><span>Status</span><select id="insightStatus"><option value="">All profiles</option><option value="Active">Active</option><option value="Inactive">Inactive</option></select></label>
+    <div class="topn-switch" aria-label="Theme depth"><button type="button" data-topn="5">Top 5</button><button type="button" class="is-active" data-topn="10">Top 10</button></div>
+    <button class="download-report" id="downloadReport" type="button">Download Excel Report ↓</button>
+    <button class="insights-clear" id="insightsClear" type="button">Reset filters</button>
+  </section>
+
+  <section class="shell insights-context-strip insights-context-v12" id="insightsContext" aria-live="polite"></section>
+  <section class="shell insights-empty-state" id="insightsEmpty" hidden>
+    <p class="eyebrow">No matching profiles</p><h2>No strengths profiles match this combination of filters.</h2><p>Remove a filter from the analysis summary above, or reset the view to continue exploring.</p><button type="button" id="insightsEmptyReset">Reset filters</button>
+  </section>
+
+  <div id="insightsAnalyticalContent">
+    <section class="shell insights-main-grid insights-main-grid-v12">
+      <article class="insight-card domain-composition-card domain-composition-v12"><div class="insight-card-head"><div><h2>Domain composition</h2><p>Share of represented Top <span id="domainDepthCopy">10</span> theme positions among profiles with available data at the selected depth. Hover a domain to see how many contributing profiles include at least one theme from it.</p></div><span id="domainScopeLabel"></span></div><div id="domainCompositionViz"></div></article>
+      <article class="insight-card theme-representation-card"><div class="insight-card-head"><div><h2>Theme representation</h2><p id="themeRepresentationCopy">Most represented themes among profiles with available Top 10 data.</p></div></div><div class="theme-rank-list" id="themeRankList"></div></article>
+      <article class="insight-card standout-card" id="standoutCard"><div class="insight-card-head"><div><h2 id="standoutTitle">What stands out in this view</h2><p id="standoutCopy">Compared with the broader population using the same Status and theme depth.</p></div></div><div class="standout-list" id="standoutList"></div></article>
+    </section>
+
+
+    <section class="shell location-analysis-grid location-analysis-v12" id="locationAnalysisGrid">
+      <article class="insight-card location-matrix-card"><div class="insight-card-head matrix-head"><div><h2>Strengths by location</h2><p>Compare theme representation across locations using profiles with enough data for the selected theme depth. Use the Location filter to change scope, then click a location name or percentage cell for focused detail.</p></div><label class="matrix-show">Rows shown <select id="matrixRows"><option value="10">Top 10</option><option value="15">Top 15</option><option value="34">All 34</option></select></label></div><div class="heatmap-legend"><span>Lower representation</span><i></i><i></i><i></i><i></i><i></i><span>Higher representation</span></div><div class="heatmap-wrap"><table class="strength-heatmap" id="locationHeatmap"></table></div></article>
+      <aside class="location-detail-panel insight-card" id="locationDetail" hidden aria-live="polite"></aside>
+    </section>
+    <section class="shell insights-footnote"><strong>Read these as patterns, not scores.</strong><p>Population counts show everyone in the filtered scope. Theme and domain percentages use only profiles with enough data for the selected Top 5 or Top 10 depth. They describe representation, not performance or capability.</p></section>
+  </div>
+</main>
+<footer class="site-footer"><div class="shell footer-grid single-footer"><div class="footer-note">CliftonStrengths® and the CliftonStrengths theme names are trademarks of Gallup, Inc. This Boldr experience uses assessment results for development and collaboration, not for performance rating, hiring decisions, or measuring capability.</div></div></footer>
+<script src="assets/jszip.min.js"></script><script src="assets/common.js"></script><script src="assets/insights.js"></script>
+</body>
+</html>
