@@ -9,8 +9,8 @@ Project-created visual assets
 - `gallup-themes-visual.jpg`, `gallup-domains-visual.jpg`, `gallup-team-grid-visual.jpg`: visual bands derived from the user-approved generated Gallup resource-section concept.
 
 Source data
-- Employee strengths, organization metadata, collaboration fields, and Full 34 report references originate from the supplied `Boldr Strengths Grid V3.xlsx` workbook.
-- Full 34 report buttons point to the existing Google Drive hyperlinks stored in the workbook’s `34 Report Reference` tab. No report PDFs are redistributed inside this package.
+- Employee strengths, organization metadata, collaboration fields, and Full 34 report references are maintained and provided by Boldr People Success.
+- Full 34 report buttons point to the existing Google Drive references maintained by People Success. No report PDFs are redistributed inside this package.
 
 Trademark / brand usage
 - CliftonStrengths®, Gallup®, and related names are associated with Gallup, Inc.

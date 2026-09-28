@@ -52,17 +52,23 @@
     'Strategic':{action:'spot alternative routes quickly and choose a path through complexity',question:'When several routes look possible, what helps you recognize the one worth pursuing?'}
   };
 
+  const rankedStrengths=(e.strengths||[]).slice(0,10);
   const domainCounts=Object.fromEntries(Object.keys(domains).map(d=>[d,0]));
-  e.strengths.slice(0,10).forEach(s=>domainCounts[s.domain]=(domainCounts[s.domain]||0)+1);
-  const availableTop=Math.min(10,(e.strengths||[]).length);
+  rankedStrengths.forEach(s=>domainCounts[s.domain]=(domainCounts[s.domain]||0)+1);
+  const availableTop=rankedStrengths.length;
   const domainBars=Object.entries(domains).map(([name,info])=>{const count=domainCounts[name]||0,p=availableTop?Math.round(count/availableTop*100):0;return `<div class="profile-domain-row" style="--domain:${info.color}"><div class="profile-domain-row-head"><span>${esc(name)}</span><strong>${count} of ${availableTop || 0}</strong></div><div class="profile-domain-track" role="img" aria-label="${esc(name)}: ${count} of ${availableTop || 0} available ranked themes, ${p}%"><span style="width:${p}%"></span></div></div>`;}).join('');
 
-  const strengthRows=e.strengths.map(s=>{const meta=themeMeta[s.theme];const link=window.BOLDR_STRENGTHS_DATA.themeLinks?.[s.theme]||'https://www.gallup.com/cliftonstrengths/en/253715/home.aspx';return `<div class="ranked-strength ranked-strength-v12" style="--domain:${domains[s.domain].color}"><span class="ranked-number">${String(s.rank).padStart(2,'0')}</span><div class="ranked-strength-copy"><div class="ranked-strength-title"><span class="ranked-name">${esc(s.theme)}</span><span class="ranked-domain"><span class="domain-dot"></span>${esc(s.domain)}</span></div><p>${esc(meta?.action||'A CliftonStrengths talent theme represented in this person’s available ranked profile.')}</p><a href="${link}" target="_blank" rel="noopener">Official Gallup theme definition ↗</a></div></div>`;}).join('');
-  const block=(title,text,icon)=>`<section class="collab-block ${text?'':'missing'}"><span class="collab-icon">${icon}</span><div><h3>${title}</h3><p>${text?esc(text):'No response is currently available in the source workbook.'}</p></div></section>`;
+  const sentence=value=>{const text=String(value||'').trim();if(!text)return '';return text.charAt(0).toUpperCase()+text.slice(1)+( /[.!?]$/.test(text)?'':'.');};
+  const strengthRows=rankedStrengths.map(s=>{
+    const meta=themeMeta[s.theme], link=window.BOLDR_STRENGTHS_DATA.themeLinks?.[s.theme]||'https://www.gallup.com/cliftonstrengths/en/253715/home.aspx', domain=domains[s.domain]||{color:'#FF6B00'};
+    const definition=sentence(meta?.action||'A CliftonStrengths talent theme represented in this person’s available ranked profile');
+    return `<article class="ranked-strength ranked-strength-v18 ${Number(s.rank)<=5?'is-core-five':''}" style="--domain:${domain.color}"><div class="ranked-number-wrap"><span class="ranked-number" aria-label="Rank ${s.rank}">${String(s.rank).padStart(2,'0')}</span></div><div class="ranked-strength-copy"><div class="ranked-strength-title"><a class="ranked-theme-link" href="${link}" target="_blank" rel="noopener"><span>${esc(s.theme)}</span><span class="ranked-link-icon" aria-hidden="true">↗</span><span class="sr-only">Open Gallup definition for ${esc(s.theme)}</span></a><span class="ranked-domain"><span class="domain-dot" aria-hidden="true"></span>${esc(s.domain)}</span></div><p>${esc(definition)}</p></div></article>`;
+  }).join('');
+  const block=(title,text,icon)=>`<section class="collab-block ${text?'':'missing'}"><span class="collab-icon">${icon}</span><div><h3>${title}</h3><p>${text?esc(text):'No response is currently available in People Success data.'}</p></div></section>`;
 
   function personalizedInsight(){
     const top=e.strengths.slice(0,5);
-    if(!top.length) return {headline:'A conversation worth personalizing.',summary:'There is not enough Top 5 data in the current source record to create a responsible combination interpretation.',tension:'Use the person’s own examples and working preferences as the primary source of meaning.',questions:['Which parts of your work feel most natural to you?','What kind of contribution gives you the most energy?','What do colleagues often come to you for?']};
+    if(!top.length) return {headline:'A conversation worth personalizing.',summary:'There is not enough Top 5 data currently available through People Success to create a responsible combination interpretation.',tension:'Use the person’s own examples and working preferences as the primary source of meaning.',questions:['Which parts of your work feel most natural to you?','What kind of contribution gives you the most energy?','What do colleagues often come to you for?']};
     const actions=top.map(s=>themeMeta[s.theme]?.action||`draw on ${s.theme} in their own way`);
     const topDomainCounts={}; top.forEach(s=>topDomainCounts[s.domain]=(topDomainCounts[s.domain]||0)+1);
     const dominant=Object.entries(topDomainCounts).sort((a,b)=>b[1]-a[1])[0];
@@ -83,7 +89,7 @@
   }
   const insight=personalizedInsight();
   const statusClass=(e.status||'').toLowerCase()==='active'?'is-active-status':(e.status||'').toLowerCase()==='inactive'?'is-inactive-status':'is-neutral-status';
-  const reportAction=e.full34ReportUrl?`<a class="full34-link" href="${esc(e.full34ReportUrl)}" target="_blank" rel="noopener"><span><strong>Full 34 Report</strong><small>Open the original assessment report ↗</small></span></a>`:'';
+  const reportAction=e.full34ReportUrl?`<aside class="full34-utility"><div><span class="full34-kicker">Full 34 report available</span><p>Open the complete CliftonStrengths report currently available for this profile.</p></div><a href="${esc(e.full34ReportUrl)}" target="_blank" rel="noopener">Open full report <span aria-hidden="true">↗</span></a></aside>`:`<aside class="full34-utility is-unavailable"><div><span class="full34-kicker">Full 34 report</span><p>A complete report is not currently available for this profile through People Success.</p></div><span class="full34-unavailable">Not available</span></aside>`;
 
   root.innerHTML=`
     <a class="back-link" href="${returnHref}">← ${returnLabel}</a>
@@ -101,15 +107,16 @@
     </section>
 
     <section class="profile-domain-panel">
-      <div class="profile-domain-copy"><p class="eyebrow">Top 10 pattern</p><h2>How the available top themes spread across the four domains.</h2><p>Each bar shows the share of this person’s available ranked themes that falls in the domain. It is a placement pattern, not a score or capability rating.</p></div>
+      <div class="profile-domain-copy"><p class="eyebrow">${availableTop?`Top ${availableTop} pattern`:'Strengths pattern'}</p><h2>How the available ranked themes spread across the four domains.</h2><p>Each bar shows the share of this person’s available ranked themes that falls in the domain. It is a placement pattern, not a score or capability rating.</p></div>
       <div class="profile-domain-bars">${domainBars}</div>
     </section>
 
     <div class="profile-grid">
-      <section class="profile-themes-section">
-        <div class="profile-section-heading"><div><p class="eyebrow">Full strengths profile</p><h2 class="profile-section-title">Available Top 10 themes</h2><p class="profile-heading-support">Rank order and concise theme context from the source assessment data.</p></div>${reportAction}</div>
-        <div class="ranked-strengths">${strengthRows || '<div class="ranked-strength"><span class="ranked-name">Strengths data pending</span></div>'}</div>
-        <p class="profile-note">Theme order reflects the assessment data available in the Boldr workbook. Some historical records contain fewer than 10 populated ranks. Lower ranked or unlisted themes are not automatically weaknesses.</p>
+      <section class="profile-themes-section profile-themes-section-v18">
+        <div class="profile-section-heading profile-section-heading-v18"><div><p class="eyebrow">Full strengths profile</p><h2 class="profile-section-title">${availableTop?`Top ${availableTop} ${availableTop===1?'theme':'themes'}`:'No ranked themes available'}</h2><p class="profile-heading-support">${availableTop?`The ${availableTop} ranked ${availableTop===1?'theme':'themes'} currently available for this profile, shown in order. Select a theme name to open Gallup’s official definition.`:'Ranked strengths are not currently available for this profile through People Success.'}</p></div></div>
+        ${reportAction}
+        <div class="ranked-strengths ranked-strengths-v18">${strengthRows || '<div class="ranked-strength-empty"><strong>No ranked themes available</strong><span>Strengths results are not currently available for this profile through People Success.</span></div>'}</div>
+        <p class="profile-note">This profile reflects the ranked strengths data currently maintained by People Success. Some profiles include Top 5 only, while others include additional ranked themes. Lower ranked or unlisted themes are not automatically weaknesses.</p>
       </section>
       <section class="profile-collab-section">
         <div class="profile-section-heading"><div><p class="eyebrow">Collaboration</p><h2 class="profile-section-title">Working with me</h2></div></div>

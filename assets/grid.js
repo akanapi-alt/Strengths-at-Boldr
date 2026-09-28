@@ -17,7 +17,6 @@
   const searchValue=()=>searchMobile.value.trim();
   const setSearch=value=>{searchMobile.value=value||'';searchDesktop.value=value||'';};
 
-  if($('heroActiveProfileCount')) $('heroActiveProfileCount').textContent=`${meta.statusCounts.Active} active strengths profiles`;
 
   const filterConfig=[
     {container:'domainOptions',badge:'domainBadge',key:'domains',items:Object.keys(domains),mode:'and'},
@@ -117,10 +116,15 @@
     const counts={};(e.strengths||[]).slice(0,5).forEach(s=>counts[s.domain]=(counts[s.domain]||0)+1);
     return Object.entries(counts).sort((a,b)=>b[1]-a[1])[0]?.[0]||'Executing';
   }
-  function pill(s){return `<span class="strength-pill strength-pill-ranked" style="--pill:${domainColor[s.domain]}"><span class="pill-rank">${String(s.rank).padStart(2,'0')}</span><span>${esc(s.theme)}</span></span>`;}
+  function cardStrengthRow(s){
+    const domain=s.domain||'Executing', color=domainColor[domain]||'#FF6B00';
+    return `<div class="card-strength-row" style="--strength-domain:${color}"><span class="card-strength-rank">${String(s.rank).padStart(2,'0')}</span><span class="card-strength-name">${esc(s.theme)}</span><span class="card-strength-domain-dot" aria-hidden="true"></span><span class="sr-only">${esc(domain)} domain</span></div>`;
+  }
   function card(e){
     const accent=domainColor[leadingDomain(e)]||'#FF6B00', href=`profile.html?id=${encodeURIComponent(e.id)}&from=${encodeURIComponent(returnUrl())}`;
-    return `<a class="person-card person-card-v12" style="--card-accent:${accent}" href="${href}" aria-label="View ${esc(e.name)} strengths profile"><div class="person-card-head"><span class="initials">${esc(initials(e.name))}</span><div class="person-heading"><h2 class="person-name">${esc(e.name)}</h2><p class="person-role">${esc(e.role||'Role not listed')}</p><p class="person-team">${esc(e.department||'Department not listed')}</p></div></div><div class="card-divider"></div><span class="card-themes-label">Top 5 themes</span><div class="strength-pills">${(e.strengths||[]).slice(0,5).map(pill).join('')||'<span class="empty-pill">Strengths not currently available</span>'}</div><div class="person-card-footer"><span>View profile</span><span aria-hidden="true">→</span></div></a>`;
+    const top=(e.strengths||[]).slice(0,5);
+    const themeLabel=top.length?`Top ${top.length} ${top.length===1?'theme':'themes'}`:'Strengths';
+    return `<a class="person-card person-card-v12 person-card-v18" style="--card-accent:${accent}" href="${href}" aria-label="View ${esc(e.name)} strengths profile"><div class="person-card-head"><span class="initials">${esc(initials(e.name))}</span><div class="person-heading"><h2 class="person-name">${esc(e.name)}</h2><p class="person-role">${esc(e.role||'Role not listed')}</p><p class="person-team">${esc(e.department||'Department not listed')}</p></div></div><div class="card-divider"></div><span class="card-themes-label">${themeLabel}</span><div class="card-strength-list">${top.length?top.map(cardStrengthRow).join(''):'<span class="empty-pill">Strengths not currently available</span>'}</div><div class="person-card-footer"><span>View profile</span><span class="person-card-footer-arrow" aria-hidden="true">→</span></div></a>`;
   }
 
   function chip(label,key,value){return `<button class="active-filter-chip" data-key="${key}" data-value="${esc(value)}" type="button">${esc(label)} <span aria-hidden="true">×</span><span class="sr-only">Remove filter</span></button>`;}
@@ -242,14 +246,13 @@
   }
 
   function updateResultsCopy(rows){
-    const statusText=selected.statuses.size===1?[...selected.statuses][0].toLowerCase():selected.statuses.size===0?'':'selected';
-    count.textContent=`${rows.length}${statusText?` ${statusText}`:''} strengths ${rows.length===1?'profile':'profiles'}`;
+    count.textContent=`Showing ${rows.length} of ${employees.length} ${employees.length===1?'profile':'profiles'}`;
     const parts=[];
     if(selected.strengths.size)parts.push(`${selected.strengths.size} strength ${selected.strengths.size===1?'filter':'filters'}`);
     if(selected.domains.size)parts.push(`${selected.domains.size} domain ${selected.domains.size===1?'filter':'filters'}`);
     if(selected.departments.size)parts.push(`${selected.departments.size} ${selected.departments.size===1?'department':'departments'}`);
     if(selected.locations.size)parts.push(`${selected.locations.size} ${selected.locations.size===1?'location':'locations'}`);
-    scope.textContent=parts.length?`Current view: ${parts.join(' · ')}.`:`Active profiles are shown by default. ${meta.statusCounts.Inactive} inactive profiles remain available through Status.`;
+    scope.textContent=parts.length?`Current view: ${parts.join(' · ')}.`:'Active profiles are shown by default. Historical inactive profiles remain available through Status.';
   }
   function renderView(rows){
     document.querySelectorAll('[data-directory-view]').forEach(button=>{const active=button.dataset.directoryView===viewMode;button.classList.toggle('is-active',active);button.setAttribute('aria-pressed',String(active));});
