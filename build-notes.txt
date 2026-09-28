@@ -1,3 +1,5 @@
-Boldr Strengths Site v17
-
-Aligned the Strengths Insights hero, applied the approved Theme Coverage design, and fixed the filtered Matrix Excel worksheet generation using the shared export builder.
+Version 21
+- Corrected Theme Coverage parent-card padding so it uses the same structural grid as Theme Representation.
+- Kept the approved compact 34 of 34 hierarchy, inset prevalence rows, and quiet footer note.
+- Converted the dark Insights interpretation banner to a single-line desktop treatment with responsive wrapping.
+- No data structures, filters, exports, or other page behavior changed.
